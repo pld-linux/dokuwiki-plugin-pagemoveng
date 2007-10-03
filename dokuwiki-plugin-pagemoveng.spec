@@ -32,6 +32,10 @@ In full you can:
 # undos the source
 %{__sed} -i -e 's,\r$,,' admin.php
 
+mv lang/cs/pagemove.txt{.txt,}
+mv lang/es/pagemove.txt{.txt,}
+mv lang/pl/pagemove.txt{.txt,}
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_plugindir}
