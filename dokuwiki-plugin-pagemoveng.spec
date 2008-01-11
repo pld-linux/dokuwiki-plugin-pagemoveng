@@ -1,5 +1,6 @@
 %define		_plugin		pagemove
-Summary:	DokuWiki PageMove Plugin
+Summary:	DokuWiki PageMove plugin
+Summary(pl.UTF-8):	Wtyczka PageMove dla DokuWiki
 Name:		dokuwiki-plugin-%{_plugin}
 Version:	0.9.15a
 Release:	0.1
@@ -25,6 +26,16 @@ In full you can:
 - Move a page to an existing namspace.
 - Move a page to a new namespace.
 - A combination of the above.
+
+%description -l pl.UTF-8
+Ta wtyczka służy do przesuwania i zmiany nazw stron wewnątrz Wiki z
+zachowaniem integralności odnośników z i do strony.
+
+W zupełności można:
+- usunąć stronę,
+- przenieść stronę do istniejącej przestrzeni nazw,
+- przenieść stronę do nowej przestrzeni nazw,
+- wykonać połączenie powyższych.
 
 %prep
 %setup -q -n %{_plugin}
@@ -59,4 +70,4 @@ rm -rf $RPM_BUILD_ROOT
 %lang(pl) %{_plugindir}/lang/pl
 %lang(ru) %{_plugindir}/lang/ru
 %lang(sl) %{_plugindir}/lang/sl
-%lang(zh) %{_plugindir}/lang/zh
+%lang(zh_CN) %{_plugindir}/lang/zh
