@@ -3,12 +3,13 @@ Summary:	DokuWiki PageMove plugin
 Summary(pl.UTF-8):	Wtyczka PageMove dla DokuWiki
 Name:		dokuwiki-plugin-%{_plugin}
 Version:	0.9.15a
-Release:	0.2
+Release:	0.3
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://www.isection.co.uk/lib/exe/fetch.php?media=pagemove_20070722.zip
 # Source0-md5:	f2cc2a57d40b877a335b52009e4cc072
 Patch0:		%{name}-redirectlinks.patch
+Patch1:		%{name}-selflinks.patch
 URL:		http://www.isection.co.uk/doku.php
 BuildRequires:	sed >= 4.0
 Requires:	dokuwiki >= 20060309
@@ -44,6 +45,7 @@ W zupełności można:
 %{__sed} -i -e 's,\r$,,' admin.php
 
 %patch0 -p1
+%patch1 -p1
 mv lang/cs/pagemove.txt{.txt,}
 mv lang/es/pagemove.txt{.txt,}
 mv lang/pl/pagemove.txt{.txt,}
