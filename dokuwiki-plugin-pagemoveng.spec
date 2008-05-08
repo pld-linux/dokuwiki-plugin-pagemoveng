@@ -1,9 +1,9 @@
-%define		_plugin		pagemove
+%define		plugin		pagemove
 Summary:	DokuWiki PageMove plugin
 Summary(pl.UTF-8):	Wtyczka PageMove dla DokuWiki
-Name:		dokuwiki-plugin-%{_plugin}
+Name:		dokuwiki-plugin-%{plugin}
 Version:	0.9.15a
-Release:	0.3
+Release:	1
 License:	GPL v2
 Group:		Applications/WWW
 Source0:	http://www.isection.co.uk/lib/exe/fetch.php?media=pagemove_20070722.zip
@@ -16,8 +16,8 @@ Requires:	dokuwiki >= 20060309
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_dokudir	/usr/share/dokuwiki
-%define		_plugindir	%{_dokudir}/lib/plugins/%{_plugin}
+%define		dokudir		/usr/share/dokuwiki
+%define		plugindir	%{dokudir}/lib/plugins/%{plugin}
 
 %description
 This plugin is designed for moving and renaming pages within your Wiki
@@ -40,7 +40,7 @@ W zupełności można:
 - wykonać połączenie powyższych.
 
 %prep
-%setup -q -n %{_plugin}
+%setup -q -n %{plugin}
 # undos the source
 %{__sed} -i -e 's,\r$,,' admin.php
 
@@ -52,25 +52,25 @@ mv lang/pl/pagemove.txt{.txt,}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_plugindir}
-cp -a . $RPM_BUILD_ROOT%{_plugindir}
+install -d $RPM_BUILD_ROOT%{plugindir}
+cp -a . $RPM_BUILD_ROOT%{plugindir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%dir %{_plugindir}
-%{_plugindir}/admin.php
-%dir %{_plugindir}/lang
-%{_plugindir}/lang/en
-%lang(cs) %{_plugindir}/lang/cs
-%lang(de) %{_plugindir}/lang/de
-%lang(es) %{_plugindir}/lang/es
-%lang(fr) %{_plugindir}/lang/fr
-%lang(lv) %{_plugindir}/lang/lv
-%lang(nl) %{_plugindir}/lang/nl
-%lang(pl) %{_plugindir}/lang/pl
-%lang(ru) %{_plugindir}/lang/ru
-%lang(sl) %{_plugindir}/lang/sl
-%lang(zh_CN) %{_plugindir}/lang/zh
+%dir %{plugindir}
+%{plugindir}/admin.php
+%dir %{plugindir}/lang
+%{plugindir}/lang/en
+%lang(cs) %{plugindir}/lang/cs
+%lang(de) %{plugindir}/lang/de
+%lang(es) %{plugindir}/lang/es
+%lang(fr) %{plugindir}/lang/fr
+%lang(lv) %{plugindir}/lang/lv
+%lang(nl) %{plugindir}/lang/nl
+%lang(pl) %{plugindir}/lang/pl
+%lang(ru) %{plugindir}/lang/ru
+%lang(sl) %{plugindir}/lang/sl
+%lang(zh_CN) %{plugindir}/lang/zh
