@@ -2,13 +2,12 @@
 Summary:	DokuWiki PageMove plugin
 Summary(pl.UTF-8):	Wtyczka PageMove dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	0.9.15a
+Version:	0.10.0
 Release:	1
 License:	GPL v2
 Group:		Applications/WWW
-# Source0Download:	http://www.isection.co.uk/lib/exe/fetch.php?media=pagemove_20070722.zip
-Source0:	pagemove_20070722.zip
-# Source0-md5:	f2cc2a57d40b877a335b52009e4cc072
+Source0:	http://acodeas.de/plugins/Version%{version}-pagemove_20100218.zip
+# Source0-md5:	48d2d8dde2794a9a5af5344623d608e8
 Patch0:		%{name}-redirectlinks.patch
 Patch1:		%{name}-selflinks.patch
 URL:		http://www.isection.co.uk/doku.php
@@ -51,6 +50,9 @@ W zupełności można:
 mv lang/cs/pagemove.txt{.txt,}
 mv lang/es/pagemove.txt{.txt,}
 mv lang/pl/pagemove.txt{.txt,}
+
+# cleanup backups after patching
+find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
 
 %install
 rm -rf $RPM_BUILD_ROOT
