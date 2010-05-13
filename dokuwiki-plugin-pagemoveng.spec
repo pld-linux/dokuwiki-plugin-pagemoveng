@@ -12,6 +12,7 @@ Patch0:		%{name}-redirectlinks.patch
 Patch1:		%{name}-selflinks.patch
 URL:		http://www.isection.co.uk/doku.php
 BuildRequires:	sed >= 4.0
+BuildRequires:	unzip
 Requires:	dokuwiki >= 20060309
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
