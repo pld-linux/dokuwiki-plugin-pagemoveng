@@ -1,18 +1,15 @@
-%define		plugin		pagemove
+%define		plugin		pagemoveng
 Summary:	DokuWiki PageMove plugin
 Summary(pl.UTF-8):	Wtyczka PageMove dla DokuWiki
 Name:		dokuwiki-plugin-%{plugin}
-Version:	0.10.0
-Release:	1
+Version:	20110322
+Release:	0.1
 License:	GPL v2
 Group:		Applications/WWW
-Source0:	http://acodeas.de/plugins/Version%{version}-pagemove_20100218.zip
-# Source0-md5:	48d2d8dde2794a9a5af5344623d608e8
-Patch0:		%{name}-redirectlinks.patch
-Patch1:		%{name}-selflinks.patch
-URL:		http://www.isection.co.uk/doku.php
+Source0:	https://github.com/dokufreaks/plugin-%{plugin}/tarball/master#/%{plugin}.tgz
+# Source0-md5:	9355168bf7f2526dbdce0a33fc3ff2a2
+URL:		https://github.com/dokufreaks/plugin-pagemoveng
 BuildRequires:	sed >= 4.0
-BuildRequires:	unzip
 Requires:	dokuwiki >= 20060309
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -20,6 +17,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		dokuconf	/etc/webapps/dokuwiki
 %define		dokudir		/usr/share/dokuwiki
 %define		plugindir	%{dokudir}/lib/plugins/%{plugin}
+%define		find_lang 	%{_usrlibrpm}/dokuwiki-find-lang.sh %{buildroot}
 
 %description
 This plugin is designed for moving and renaming pages within your Wiki
@@ -42,23 +40,23 @@ W zupełności można:
 - wykonać połączenie powyższych.
 
 %prep
-%setup -q -n %{plugin}
-# undos the source
-%{__sed} -i -e 's,\r$,,' admin.php
+%setup -qc
+# for github urls:
+mv *-%{plugin}-*/* .
+%{__rm} *-%{plugin}-*/.gitignore
 
-%patch0 -p1
-%patch1 -p1
-mv lang/cs/pagemove.txt{.txt,}
-mv lang/es/pagemove.txt{.txt,}
-mv lang/pl/pagemove.txt{.txt,}
-
-# cleanup backups after patching
-find '(' -name '*~' -o -name '*.orig' ')' -print0 | xargs -0 -r -l512 rm -f
+version=$(awk '/^date/{print $2}' plugin.info.txt)
+if [ "$(echo "$version" | tr -d -)" != %{version} ]; then
+	: %%{version} mismatch
+#	exit 1
+fi
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{plugindir}
 cp -a . $RPM_BUILD_ROOT%{plugindir}
+
+%find_lang %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -69,19 +67,10 @@ if [ -f %{dokuconf}/local.php ]; then
 	touch %{dokuconf}/local.php
 fi
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %dir %{plugindir}
-%{plugindir}/admin.php
-%dir %{plugindir}/lang
-%{plugindir}/lang/en
-%lang(cs) %{plugindir}/lang/cs
-%lang(de) %{plugindir}/lang/de
-%lang(es) %{plugindir}/lang/es
-%lang(fr) %{plugindir}/lang/fr
-%lang(lv) %{plugindir}/lang/lv
-%lang(nl) %{plugindir}/lang/nl
-%lang(pl) %{plugindir}/lang/pl
-%lang(ru) %{plugindir}/lang/ru
-%lang(sl) %{plugindir}/lang/sl
-%lang(zh_CN) %{plugindir}/lang/zh
+%{plugindir}/*.css
+%{plugindir}/*.js
+%{plugindir}/*.php
+%{plugindir}/*.txt
